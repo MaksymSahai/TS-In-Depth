@@ -53,8 +53,20 @@ function calcTotalPages(): bigint {
     }, 0n);
 }
 
+function createCustomerID(name: string, id: number): string {
+    return `${id}-${name}`;
+}
+
 // Task 02.01
 //logFirstAvailable(getAllBooks());
-logBookTitles(getBookTitlesByCategory(Category.JavaScript));
+//logBookTitles(getBookTitlesByCategory(Category.JavaScript));
+//console.log(calcTotalPages());
 
-console.log(calcTotalPages());
+//Task 03.01
+
+const myID: string = createCustomerID("Ann", 10);
+console.log(myID);
+let idGenerator: (name: string, id: number) => string;
+idGenerator = (name: string, id: number) => `${id}+${name}`;
+idGenerator = createCustomerID;
+console.log(idGenerator('Boris', 20))
