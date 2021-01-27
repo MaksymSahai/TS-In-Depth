@@ -1,3 +1,5 @@
+/* eslint-disable no-redeclare */
+
 showHello('greeting', 'TypeScript');
 
 function showHello(divName: string, name: string) {
@@ -84,6 +86,38 @@ function checkoutBooks(customer: string, ...bookIDs: number[]): string[] {
     return titles;
 }
 
+function getTitles(author: string): string[];
+function getTitles(available: boolean): string[];
+function getTitles(id: number, available: boolean): string[];
+function getTitles(...args: any[]): string[] {
+    const books = getAllBooks();
+
+    if (args.length === 1) {
+        const [arg] = args;
+        if (typeof arg === 'string') {
+            return books.filter(book => book.author === arg).map(book => book.title);
+        }
+        else if (typeof arg === 'boolean') {
+            return books.filter(book => book.available === arg).map(book => book.title);
+
+        }
+    }
+    else if (args.length === 2) {
+        const [id, available] = args;
+
+        if (typeof id === 'number' && typeof available === 'boolean') {
+            return books.filter(book => book.id === id && book.available === available)
+                .map(book => book.title);
+
+        }
+
+    }
+
+    return [];
+}
+
+
+
 // Task 02.01
 //logFirstAvailable(getAllBooks());
 //logBookTitles(getBookTitlesByCategory(Category.JavaScript));
@@ -106,5 +140,10 @@ function checkoutBooks(customer: string, ...bookIDs: number[]): string[] {
 //logFirstAvailable();
 //console.log(getBookByID(1));
 
-const myBooks = checkoutBooks('Ann', 1, 2, 4);
-console.log(myBooks);
+//const myBooks = checkoutBooks('Ann', 1, 2, 4);
+//console.log(myBooks);
+
+//Task 03.03
+
+//console.log(getTitles(1, true));
+//console.log(getTitles(false));
