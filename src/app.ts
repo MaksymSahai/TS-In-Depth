@@ -116,6 +116,18 @@ function getTitles(...args: any[]): string[] {
     return [];
 }
 
+function assertStringValue(val: any): asserts val is string {
+    if (typeof val !== 'string') {
+        throw new Error('value shuld have been a string');
+    }
+}
+
+function bookTitleTransform(title: any): string {
+    assertStringValue(title);
+
+    return [...title].reverse().join('');
+}
+
 
 
 // Task 02.01
@@ -147,3 +159,8 @@ function getTitles(...args: any[]): string[] {
 
 //console.log(getTitles(1, true));
 //console.log(getTitles(false));
+
+//Task 03.04
+
+console.log(bookTitleTransform('typescript'));
+console.log(bookTitleTransform(100));
