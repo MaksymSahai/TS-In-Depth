@@ -8,9 +8,40 @@ function showHello(divName: string, name: string) {
 }
 enum Category { JavaScript, Css, Html, TypeScript, Angular }
 
+interface DamageLogger {
+    (reason: string): void;
+}
 
-function getAllBooks() {
-    const books = <const>[
+
+interface Book {
+    id: number;
+    title: string;
+    author: string;
+    available: boolean;
+    category: Category;
+    pages?: number;
+    //markDamaged?: (reason: string) => void;
+    markDamaged?: DamageLogger;
+}
+
+interface Person {
+    name: string;
+    email: string;
+}
+
+interface Author extends Person {
+    numBookPublished: number;
+}
+
+interface Librarian extends Person {
+    department: string;
+    assistCustomer: (custName: string) => void;
+}
+
+type BookProperties = keyof Book;
+
+function getAllBooks(): ReadonlyArray<Book> {
+    const books: readonly Book[] = <const>[
         { id: 1, category: Category.JavaScript, title: 'Refactoring JavaScript', author: 'Evan Burchard', available: true },
         { id: 2, category: Category.JavaScript, title: 'JavaScript Testing', author: 'Liang Yuxian Eugene', available: false },
         { id: 3, category: Category.Css, title: 'CSS Secrets', author: 'Lea Verou', available: true },
@@ -66,7 +97,7 @@ function createCustomer(name: string, age?: number, city?: string): void {
     if (city) console.log(`Customer City: ${city}`)
 }
 
-function getBookByID(id: number): any {
+function getBookByID(id: number): Book | undefined {
     const books = getAllBooks();
     return books.find(book => book.id === id);
 }
@@ -128,6 +159,57 @@ function bookTitleTransform(title: any): string {
     return [...title].reverse().join('');
 }
 
+function printBook(book: Book): void {
+    console.log(`${book.title} by ${book.author}`);
+}
+
+function getProperty(book: Book, prop: BookProperties): any {
+    if (typeof book[prop] === 'function') {
+        return (book[prop] as Function).name;
+    }
+
+    return book[prop];
+}
+
+class ReferenceItem {
+    //title: string;
+    //year: number;
+
+    //constructor(newtitle: string, newYear: number) {
+    //    console.log('Creating a new referenceItem...')
+    //    this.title = newtitle;
+    //    this.year = newYear;
+    // }
+
+    #id: number;
+
+    private _publisher: string;
+
+    static department: string = 'Classical Literature';
+
+    get publisher(): string {
+        return this._publisher.toUpperCase();
+    }
+
+    set publisher(newPublisher: string) {
+        this._publisher = newPublisher;
+    }
+
+    constructor(id: number, public title: string, private year: number) {
+        console.log('Creating a new referenceItem...')
+        this.#id = id;
+    }
+
+    getID(): number {
+        return this.#id;
+    }
+
+    printItem(): void {
+        console.log(`${this.title} was pablished in ${this.year}`);
+        console.log(ReferenceItem.department);
+    }
+}
+
 
 
 // Task 02.01
@@ -162,5 +244,77 @@ function bookTitleTransform(title: any): string {
 
 //Task 03.04
 
-console.log(bookTitleTransform('typescript'));
-console.log(bookTitleTransform(100));
+//console.log(bookTitleTransform('typescript'));
+//console.log(bookTitleTransform(100));
+
+//Task 04.01
+//const myBook: Book = {
+//    id: 5,
+//    title: 'Colors, Backgrounds, and Gradients',
+//    author: 'Eric A. Meyer',
+//   available: true,
+//   category: Category.Css,
+//  pages: 200,
+//    //year: 2015,
+//    //copies: 3
+//    markDamaged: (reason: string) => `Damaged: ${reason}`;
+//};
+
+//printBook(myBook);
+
+//console.log(myBook.markDamaged('missing back cover'));
+
+//Task 04.02
+
+//const logDamage: DamageLogger = (reason: string) => `Damaged: ${reason}`;
+//console.log(logDamage('missing back cover'));
+
+
+//Task 04.03
+
+//const favoriteAuthor: Author = {
+//    name: 'Anna',
+//    email:'anna@mail.com',
+//    numBookPublished: 3
+//};
+
+//const favoriteLibrarian: Librarian = {
+//    name: 'Boris',
+//    email: 'boris@mail.com',
+//    department: 'Classical Literature',
+//    assistCustomer(custName: string)
+//}
+
+//Task 04.04
+
+//const offer: any = {
+//    book: {
+//        title: 'Essential TypeScript',
+//        authors: []
+//    }
+//};
+
+// a.  offer.magazine
+// b.  offer.magazine.getTitle()
+// c.  offer.book.getTitile()
+// d.  offer.book.authors[0]
+//console.log(offer.magazine);
+//console.log(offer.magazine.getTitle());
+//console.log(offer.book.getTitile());
+//console.log(offer.book.authors[0]);
+
+//Task 04.05
+
+//console.log(getProperty(myBook, 'title'));
+//console.log(getProperty(myBook, 'markDamaged'));
+//console.log(getProperty(myBook, 'isbn'));
+
+//Task 05.01
+//const ref: ReferenceItem = new ReferenceItem(1, 'TypeScript', 2021);
+//ref.printItem();
+
+//ref.publisher = 'Publisher';
+//console.log(ref.publisher);
+//console.log(ref);
+//console.log(ref.getID());
+
