@@ -42,4 +42,13 @@ interface Librarian extends Person {
     assistCustomer: (custName: string) => void;
 }
 
-export { DamageLogger as Logger, C, Book, Person, Author, Librarian }
+interface Magazine {
+    title: string;
+    publisher: string;
+}
+
+interface ShelfItem<T> {
+    title: string;
+}
+
+export { DamageLogger as Logger, C, Book, Person, Author, Librarian, Magazine, ShelfItem }

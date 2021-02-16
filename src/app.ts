@@ -1,8 +1,9 @@
-import { ReferenceItem, UniversityLibrarian, RefBook } from "./classes";
+import { ReferenceItem, UniversityLibrarian, RefBook, Shelf } from "./classes";
 import { Category } from "./enums";
-import { Librarian } from "./interfaces";
+import { Book, Librarian, Magazine } from "./interfaces";
 import { PersonBook } from "./types";
-import type { Library } from "./classes"
+import type { Library } from "./classes";
+import { purge } from './functions';
 
 showHello('greeting', 'TypeScript');
 
@@ -163,3 +164,45 @@ function showHello(divName: string, name: string) {
 //     name: 'Anna',
 //     address: 'unknow'
 // }
+
+//Task 07.01
+
+const inventory: Book[] = [
+    { id: 10, title: 'The C Programming Language', author: 'K & R', available: true, category: Category.Software },
+    { id: 11, title: 'Code Complete', author: 'Steve McConnell', available: true, category: Category.Software },
+    { id: 12, title: '8-Bit Graphics with Cobol', author: 'A. B.', available: true, category: Category.Software },
+    { id: 13, title: 'Cool autoexec.bat Scripts!', author: 'C. D.', available: true, category: Category.Software }
+];
+// const result: Book[] = purge<Book>(inventory);
+// console.log(result);
+
+// interface G<T> {
+//     [index: string]: (a: T) => T;
+// }
+
+// let g: G<number>;
+// g = {
+//     m1(a: number) {
+//         return a;
+//     },
+
+//     m2(a: number) {
+//         return a;
+//     }
+// };
+
+// Task 07.02
+
+// const bookShelf = new Shelf<Book>();
+// inventory.forEach(book => bookShelf.add(book));
+// console.log(bookShelf.getFirst());
+
+// const magazines: Magazine[] = [
+//     { title: 'Programming Language Monthly', publisher: 'Code Mags' },
+//     { title: 'Literary Fiction Quarterly', publisher: 'College Press' },
+//     { title: 'Five Points', publisher: 'GSU' }
+// ];
+
+// const magShelf = new Shelf<Book>();
+// inventory.forEach(mag => magShelf.add(mag));
+// console.log(magShelf.getFirst());

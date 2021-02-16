@@ -132,3 +132,7 @@ export function getProperty(book: Book, prop: BookProperties): any {
 
     return book[prop];
 }
+
+export function purge<T>(inventory: Array<T>): T[] {
+    return inventory.slice(2)
+}
