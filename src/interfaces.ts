@@ -47,8 +47,13 @@ interface Magazine {
     publisher: string;
 }
 
-interface ShelfItem<T> {
+interface ShelfItem {
     title: string;
 }
 
-export { DamageLogger as Logger, C, Book, Person, Author, Librarian, Magazine, ShelfItem }
+interface LibMgrCallback {
+    (err: Error,
+        titles: string[]): void
+}
+
+export { DamageLogger as Logger, C, Book, Person, Author, Librarian, Magazine, ShelfItem, LibMgrCallback }

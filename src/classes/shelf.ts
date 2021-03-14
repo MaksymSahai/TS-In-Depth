@@ -1,6 +1,6 @@
 import { ShelfItem } from "../interfaces";
 
-export default class Shelf<T> implements ShelfItem<T> {
+export default class Shelf<T extends ShelfItem>{
     title: string;
     private items: T[] = [];
 

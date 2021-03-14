@@ -1,5 +1,5 @@
 import { Category } from "./enums";
-import { Book } from "./interfaces";
+import { Book, LibMgrCallback } from "./interfaces";
 import { BookOrUndefined, BookProperties } from "./types";
 
 export function getAllBooks(): ReadonlyArray<Book> {
@@ -125,9 +125,17 @@ export function printBook(book: Book): void {
     console.log(`${book.title} by ${book.author}`);
 }
 
-export function getProperty(book: Book, prop: BookProperties): any {
+// export function getProperty(book: Book, prop: BookProperties): any {
+//     if (typeof book[prop] === 'function') {
+//         return (book[prop] as Function).name;
+//     }
+
+//     return book[prop];
+// }
+
+export function getProperty<TObject, Tkey extends keyof TObject>(book: TObject, prop: Tkey): TObject[Tkey] | string {
     if (typeof book[prop] === 'function') {
-        return (book[prop] as Function).name;
+        return book[prop]['name'];
     }
 
     return book[prop];
@@ -135,4 +143,48 @@ export function getProperty(book: Book, prop: BookProperties): any {
 
 export function purge<T>(inventory: Array<T>): T[] {
     return inventory.slice(2)
+}
+
+export function getBooksByCategory(category: Category, callBack: LibMgrCallback): void {
+    setTimeout(() => {
+        try {
+            const titles = getBookTitlesByCategory(category);
+            if (titles.length > 0) {
+                callBack(null, titles);
+            } else {
+                throw new Error('No books found.');
+            }
+        } catch (error) {
+            callBack(error, null);
+        }
+    }, 2000);
+}
+
+export function logCategorySearch(err: Error, titles: string[]): void {
+    if (err) {
+        console.log(`Error message: ${err.message}`);
+    } else {
+        console.log(titles);
+    }
+}
+
+export function getBooksByCategoryPromise(category: Category): Promise<string[]> {
+    return new Promise<string[]>(
+        (resolve, reject) => {
+            setTimeout(() => {
+                const titles = getBookTitlesByCategory(category);
+                if (titles.length > 0) {
+                    resolve(titles);
+                }
+                else {
+                    reject('No books found');
+                }
+            }, 2000);
+        }
+    );
+}
+
+export function logSearchResults(category: Category): Promise<void> {
+    const titles = getBooksByCategoryPromise(category);
+    console.log(titles);
 }

@@ -1,9 +1,9 @@
 import { ReferenceItem, UniversityLibrarian, RefBook, Shelf } from "./classes";
 import { Category } from "./enums";
 import { Book, Librarian, Magazine } from "./interfaces";
-import { PersonBook } from "./types";
+import { BookRequiredFields, CreateCustomerFunctiontype, PersonBook, UpdateBook } from "./types";
 import type { Library } from "./classes";
-import { purge } from './functions';
+import { createCustomer, getBooksByCategory, getBooksByCategoryPromise, getProperty, logCategorySearch, logSearchResults, purge } from './functions';
 
 showHello('greeting', 'TypeScript');
 
@@ -206,3 +206,86 @@ const inventory: Book[] = [
 // const magShelf = new Shelf<Book>();
 // inventory.forEach(mag => magShelf.add(mag));
 // console.log(magShelf.getFirst());
+
+//Task 07.03
+// magShelf.printTitles();
+// console.log(magShelf.find("Five Points"));
+
+// console.log(getProperty(magazines[0], 'title'));
+
+//Task 07.04
+// const book: BookRequiredFields = {
+//     author: 'Anna',
+//     available: false,
+//     category: Category.Css,
+//     id: 1,
+//     markDamaged: null,
+//     pages: 200,
+//     title: 'Unknow'
+// };
+
+// const b: UpdateBook = {
+//     id: 1,
+//     author: 'Boris'
+// }
+
+// const params: Parameters<CreateCustomerFunctiontype> = ['Anna'];
+// createCustomer(...params)
+// const p: [number, string];
+
+//Task 08.01, 08.02
+// const l = new UniversityLibrarian();
+// console.log(l);
+// l['printLibrarian']();
+
+//Task 08.03
+// const l = new UniversityLibrarian();
+// l.assistFaculty = null;
+// l.teachCommunity = null;
+// console.log(l);
+
+//Task 08.04
+// const e = new RefBook(1, 'Unkniw', 2021, 2);
+// e.printItem();
+
+//Task 08.05 08.06
+// const l = new UniversityLibrarian();
+// l.name = 'Anna';
+// l.assistCustomer('Boris');
+
+//Task 08.07
+// const e = new RefBook(1, 'Unkniw', 2021, 2);
+// e.copies = 10;
+// e.copies = 0;
+// e.copies = 1.1;
+
+//Task 09.01
+// console.log(`start`);
+// getBooksByCategory(Category.JavaScript, logCategorySearch);
+// console.log(`finish`);
+
+// console.log(`start`);
+// getBooksByCategory(Category.Software, logCategorySearch);
+// console.log(`finish`);
+
+//Task 09.02
+
+// console.log(`start`);
+// getBooksByCategoryPromise(Category.JavaScript)
+//     .then(titles => { console.log(titles); return titles.length; })
+//     .then(numOfBooks => console.log(numOfBooks))
+//     .catch(err => console.log(err));
+// console.log(`finish`);
+
+// console.log(`start`);
+// getBooksByCategoryPromise(Category.Software)
+//     .then(titles => console.log(titles))
+//     .catch(err => console.log(err));
+// console.log(`finish`);
+
+//Task 09.03
+
+console.log(`start`);
+logSearchResults(Category.JavaScript);
+logSearchResults(Category.Software).catch(err => console.log(err));
+console.log(`finish`);
