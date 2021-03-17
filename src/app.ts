@@ -1,7 +1,7 @@
 import { ReferenceItem, UniversityLibrarian, RefBook, Shelf } from "./classes";
 import { Category } from "./enums";
-import { Book, Librarian, Magazine } from "./interfaces";
-import { BookRequiredFields, CreateCustomerFunctiontype, PersonBook, UpdateBook } from "./types";
+import { Book, Librarian, Magazine, User } from "./interfaces";
+import { BookRequiredFields, CreateCustomerFunctiontype, PersonBook, PersonWoEmail, UpdateBook, UserRequiredFields } from "./types";
 import type { Library } from "./classes";
 import { createCustomer, getBooksByCategory, getBooksByCategoryPromise, getProperty, logCategorySearch, logSearchResults, purge } from './functions';
 
@@ -285,7 +285,30 @@ const inventory: Book[] = [
 
 //Task 09.03
 
-console.log(`start`);
-logSearchResults(Category.JavaScript);
-logSearchResults(Category.Software).catch(err => console.log(err));
-console.log(`finish`);
+// console.log(`start`);
+// logSearchResults(Category.JavaScript);
+// logSearchResults(Category.Software).catch(err => console.log(err));
+// console.log(`finish`);
+
+//первое задание это декоратор, был добавлен isOdd декорато в класс Encyclopedia
+const e = new RefBook(1, 'Unkniw', 2021, 2);
+e.copies = 10;
+e.copies = 11;
+
+//второе работа с интерфейсами
+const person: PersonWoEmail = {
+    name: 'Test'
+}
+
+const user: User = {
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    age: 27
+}
+
+const user2: UserRequiredFields = {
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    age: 27,
+    middleName: 'Middle name'
+}

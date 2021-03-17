@@ -98,6 +98,20 @@ export function positiveInteger(target: any, methodName: string, descriptor: Pro
     return descriptor;
 }
 
+export function isOdd(target: any, methodName: string, descriptor: PropertyDescriptor) {
+    const originalSet = descriptor.set;
+
+    descriptor.set = function (value: number) {
+        if (value % 2 == 0) {
+            throw new Error('Value is not odd');
+        }
+
+        originalSet.call(this, value);
+    };
+
+    return descriptor;
+}
+
 function makeProperty<T>(
     prototype: any,
     propertyName: string,

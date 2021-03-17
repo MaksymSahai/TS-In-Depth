@@ -1,15 +1,16 @@
-import { positiveInteger } from "../decorators";
+import { isOdd, positiveInteger } from "../decorators";
 import { ReferenceItem } from "./ReferenceItem";
 
 export default class Encyclopedia extends ReferenceItem {
     private _copies: number;
 
-    @positiveInteger
+    //@positiveInteger
     get copies(): number {
         return this._copies;
     }
 
     //@positiveInteger
+    @isOdd
     set copies(value: number) {
         this._copies = value
     }

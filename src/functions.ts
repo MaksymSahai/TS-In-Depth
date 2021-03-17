@@ -184,7 +184,7 @@ export function getBooksByCategoryPromise(category: Category): Promise<string[]>
     );
 }
 
-export function logSearchResults(category: Category): Promise<void> {
-    const titles = getBooksByCategoryPromise(category);
+export async function logSearchResults(category: Category): Promise<void> {
+    const titles = await getBooksByCategoryPromise(category);
     console.log(titles);
 }

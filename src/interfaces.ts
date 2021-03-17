@@ -56,4 +56,11 @@ interface LibMgrCallback {
         titles: string[]): void
 }
 
-export { DamageLogger as Logger, C, Book, Person, Author, Librarian, Magazine, ShelfItem, LibMgrCallback }
+interface User {
+    firstName: string,
+    lastName: string,
+    middleName?: string,
+    age: number
+}
+
+export { DamageLogger as Logger, C, Book, Person, Author, Librarian, Magazine, ShelfItem, LibMgrCallback, User }
